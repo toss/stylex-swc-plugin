@@ -35,13 +35,13 @@ rustc-hash.workspace = true
 log.workspace = true
 
 stylex_shared = { path = "../stylex-shared" }
-napi = "2"
-napi-derive = "2"
+napi = { version = "3", features = ["compat-mode"] }
+napi-derive = "3"
 
 
 [dev-dependencies]
-napi-build = "2"
+napi-build = "3"
 
 
 [build-dependencies]
-napi-build = "2"
+napi-build = "3"
