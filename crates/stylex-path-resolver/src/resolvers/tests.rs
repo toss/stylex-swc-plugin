@@ -56,15 +56,10 @@ mod resolve_path_application_pnpm_tests {
     let expected_result = format!("{}/{}", root_path, "src/colors.stylex.js");
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -84,15 +79,10 @@ mod resolve_path_application_pnpm_tests {
     let expected_result = format!("{}/{}", root_path, "src/components/button.js");
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -113,15 +103,10 @@ mod resolve_path_application_pnpm_tests {
     let expected_result = format!("{}/{}", root_path, "src/components/button.js");
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -157,15 +142,10 @@ mod resolve_path_application_pnpm_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -188,15 +168,10 @@ mod resolve_path_application_pnpm_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -218,15 +193,10 @@ mod resolve_path_application_pnpm_tests {
       root_path, "node_modules/stylex-lib-dist-exports-with-main/dist/colors.stylex.js",
     );
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -250,15 +220,10 @@ mod resolve_path_application_pnpm_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -282,15 +247,10 @@ mod resolve_path_application_pnpm_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -320,15 +280,10 @@ mod resolve_path_application_npm_tests {
     let expected_result = format!("{}/{}", root_path, "src/colors.stylex.js");
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -348,15 +303,10 @@ mod resolve_path_application_npm_tests {
     let expected_result = format!("{}/{}", root_path, "src/components/button.js");
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -377,15 +327,10 @@ mod resolve_path_application_npm_tests {
     let expected_result = format!("{}/{}", root_path, "src/components/button.js");
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -421,15 +366,10 @@ mod resolve_path_application_npm_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -453,15 +393,10 @@ mod resolve_path_application_npm_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -487,15 +422,10 @@ mod resolve_path_application_npm_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -532,15 +462,10 @@ mod resolve_nested_external_imports_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
   }
@@ -566,15 +491,10 @@ mod resolve_nested_external_imports_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
 
@@ -614,15 +534,10 @@ mod resolve_nested_external_imports_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
 
@@ -662,15 +577,10 @@ mod resolve_nested_external_imports_tests {
     );
 
     assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
+      resolve_file_path(import_path_str, source_file_path.as_str(), &aliases)
+        .unwrap_or_default()
+        .display()
+        .to_string(),
       expected_result
     );
 

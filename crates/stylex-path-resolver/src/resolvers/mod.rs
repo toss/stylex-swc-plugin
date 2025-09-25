@@ -9,7 +9,6 @@ pub const EXTENSIONS: [&str; 8] = [".tsx", ".ts", ".jsx", ".js", ".mjs", ".cjs",
 pub fn resolve_file_path(
   import_path_str: &str,
   source_file_path: &str,
-  root_path: &str,
   aliases: &FxHashMap<String, Vec<String>>,
 ) -> std::io::Result<PathBuf> {
   let resolver_options = ResolveOptions {

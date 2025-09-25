@@ -416,15 +416,9 @@ impl StateManager {
 
     match &self.options.unstable_module_resolution {
       CheckModuleResolution::CommonJS(_) => {
-        let filename = self.get_filename();
-
-        let (_, root_dir) = StateManager::get_package_name_and_path(filename, package_json_seen)
-          .unwrap_or_else(|| panic!("Cannot get package name and path for: {}", filename));
-
         let aliases = self.options.aliases.as_ref().cloned().unwrap_or_default();
 
-        let resolved_file_path =
-          file_path_resolver(import_path, source_file_path, &root_dir, &aliases);
+        let resolved_file_path = file_path_resolver(import_path, source_file_path, &aliases);
 
         debug!("Resolved import path: {}", resolved_file_path);
 
@@ -896,7 +890,6 @@ fn chain_collect_index_map<K: Eq + Hash, V: Clone + PartialEq>(
 fn file_path_resolver(
   relative_file_path: &str,
   source_file_path: &str,
-  root_path: &str,
   aliases: &FxHashMap<String, Vec<String>>,
 ) -> String {
   if EXTENSIONS
@@ -906,8 +899,7 @@ fn file_path_resolver(
     unimplemented!("Extension match found, but handling is unimplemented");
   }
 
-  let resolved_file_path =
-    resolve_file_path(relative_file_path, source_file_path, root_path, aliases);
+  let resolved_file_path = resolve_file_path(relative_file_path, source_file_path, aliases);
 
   if let Ok(resolved_path) = resolved_file_path {
     let resolved_path_str = resolved_path.display().to_string();
