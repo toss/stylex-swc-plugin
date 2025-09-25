@@ -895,7 +895,7 @@ mod resolve_path_application_pnpm_tests {
 
   use crate::resolvers::{resolve_file_path, tests::get_root_dir};
 
-  use std::{collections::HashMap, path::PathBuf};
+  use std::path::PathBuf;
 
   #[test]
   fn resolve_regular_local_import_from_src() {
@@ -1159,7 +1159,7 @@ mod resolve_path_application_npm_tests {
 
   use crate::resolvers::{resolve_file_path, tests::get_root_dir};
 
-  use std::{collections::HashMap, path::PathBuf};
+  use std::path::PathBuf;
 
   #[test]
   fn resolve_regular_local_import_from_src() {
@@ -1365,7 +1365,7 @@ mod resolve_nested_external_imports_tests {
     resolvers::{resolve_file_path, tests::get_root_dir},
   };
 
-  use std::{collections::HashMap, path::PathBuf};
+  use std::path::PathBuf;
 
   #[test]
   fn resolve_regular_nested_import() {
