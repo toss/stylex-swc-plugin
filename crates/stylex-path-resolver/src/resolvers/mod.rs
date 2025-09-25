@@ -2,6 +2,7 @@ use core::panic;
 use indexmap::IndexSet;
 use log::{debug, warn};
 use once_cell::sync::Lazy;
+use oxc_resolver::{AliasValue, ResolveOptions, Resolver};
 use path_clean::PathClean;
 use regex::Regex;
 use rustc_hash::FxHashMap;
@@ -21,8 +22,7 @@ use crate::{
   file_system::{get_directories, get_directory_path_recursive},
   package_json::{
     PackageJsonExtended, find_closest_node_modules, find_closest_package_json_folder,
-    get_package_json, get_package_json_with_deps, recursive_find_node_modules,
-    resolve_package_from_package_json,
+    get_package_json, get_package_json_with_deps, resolve_package_from_package_json,
   },
   utils::{contains_subpath, relative_path, sort_export_paths_by_priority},
 };
@@ -393,42 +393,27 @@ pub fn resolve_file_path(
   } else if import_path_str.starts_with('/') {
     vec![root_path.join(import_path_str)]
   } else {
-    let mut possible_file_paths = possible_aliased_paths(import_path_str, aliases)
-      .iter()
-      .map(PathBuf::from)
-      .collect::<IndexSet<PathBuf>>();
+    let resolver_options = ResolveOptions {
+      alias: aliases
+        .iter()
+        .map(|(alias, values)| {
+          (
+            alias.clone(),
+            values
+              .iter()
+              .map(|value| AliasValue::from(value.clone()))
+              .collect(),
+          )
+        })
+        .collect(),
+      extensions: EXTENSIONS.iter().map(|ext| ext.to_string()).collect(),
+      ..ResolveOptions::default()
+    };
 
-    if !import_path_str.is_empty() {
-      possible_file_paths.insert(Path::new("node_modules").join(import_path_str));
-
-      let closest_node_modules_paths = recursive_find_node_modules(source_file_dir, None);
-
-      for closest_node_modules_path in closest_node_modules_paths.iter() {
-        let closest_node_modules_path = closest_node_modules_path.join(import_path_str);
-
-        possible_file_paths.insert(closest_node_modules_path.clone());
-
-        possible_file_paths.extend(resolve_package_with_node_modules_path(
-          closest_node_modules_path,
-          import_path_str,
-          source_file_dir,
-          package_json_seen,
-        ));
-      }
+    match Resolver::new(resolver_options).resolve(source_file_dir, &import_path_str) {
+      Err(_) => vec![],
+      Ok(resolution) => vec![resolution.into_path_buf()],
     }
-
-    if let Ok(resolved_node_modules_path_buf) =
-      resolve_node_modules_path_buff(cwd_path, import_path_str, package_json_seen)
-    {
-      possible_file_paths.extend(resolve_package_with_node_modules_path(
-        resolved_node_modules_path_buf,
-        import_path_str,
-        source_file_dir,
-        package_json_seen,
-      ));
-    }
-
-    possible_file_paths.into_iter().collect()
   };
 
   let resolved_potential_file_paths = resolved_file_paths
