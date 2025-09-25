@@ -1,5 +1,4 @@
 use core::panic;
-use indexmap::IndexSet;
 use log::{debug, warn};
 use once_cell::sync::Lazy;
 use oxc_resolver::{AliasValue, ResolveOptions, Resolver};
@@ -19,10 +18,10 @@ use std::fs;
 
 use crate::{
   enums::ExportsType,
-  file_system::{get_directories, get_directory_path_recursive},
+  file_system::get_directory_path_recursive,
   package_json::{
     PackageJsonExtended, find_closest_node_modules, find_closest_package_json_folder,
-    get_package_json, get_package_json_with_deps, resolve_package_from_package_json,
+    get_package_json, get_package_json_with_deps,
   },
   utils::{contains_subpath, relative_path, sort_export_paths_by_priority},
 };
@@ -473,149 +472,4 @@ pub fn resolve_file_path(
     std::io::ErrorKind::NotFound,
     "File not found",
   ))
-}
-
-fn resolve_package_with_node_modules_path(
-  mut resolved_node_modules_path_buf: PathBuf,
-  import_path_str: &str,
-  source_file_dir: &Path,
-  package_json_seen: &mut std::collections::HashMap<
-    String,
-    PackageJsonExtended,
-    rustc_hash::FxBuildHasher,
-  >,
-) -> IndexSet<PathBuf> {
-  let mut aliased_file_paths: IndexSet<PathBuf> = IndexSet::new();
-
-  let (mut package_json, _) = get_package_json(&resolved_node_modules_path_buf, package_json_seen);
-
-  let package_name = package_json.name.clone().unwrap_or_else(|| {
-    panic!(
-      "Package name is not found in package.json of '{}'",
-      import_path_str
-    )
-  });
-
-  if let Some((pnpm_package_json, pnpm_package_path)) = resolve_package_with_pnpm_path(
-    source_file_dir,
-    &package_name,
-    import_path_str,
-    package_json_seen,
-  ) {
-    package_json = pnpm_package_json;
-    resolved_node_modules_path_buf = pnpm_package_path;
-  }
-
-  let potential_import_path_segment = import_path_str
-    .split(&package_name)
-    .last()
-    .unwrap_or_default();
-
-  let import_path_segment = if potential_import_path_segment.is_empty() {
-    package_name
-  } else {
-    potential_import_path_segment.to_string()
-  };
-
-  if let Some(exports) = &package_json.exports {
-    let potential_package_path = resolve_package_json_exports(
-      Path::new(&import_path_segment),
-      exports,
-      &resolved_node_modules_path_buf,
-    );
-
-    if !potential_package_path.as_os_str().is_empty() {
-      aliased_file_paths.insert(Path::new(&potential_package_path).to_path_buf().clean());
-    }
-  }
-
-  if !resolved_node_modules_path_buf.as_os_str().is_empty()
-    && !resolved_node_modules_path_buf.ends_with("node_modules")
-  {
-    aliased_file_paths.insert(resolved_node_modules_path_buf.clean());
-  }
-
-  aliased_file_paths
-}
-
-fn resolve_package_with_pnpm_path(
-  source_file_dir: &Path,
-  package_name: &String,
-  import_path_str: &str,
-  package_json_seen: &mut FxHashMap<String, PackageJsonExtended>,
-) -> Option<(PackageJsonExtended, PathBuf)> {
-  let closest_package_json_path = find_closest_package_json_folder(&PathBuf::from(source_file_dir));
-  if let Some(closest_package_json_directory) = closest_package_json_path
-    && let Ok(directories) =
-      get_directories(&closest_package_json_directory.join("node_modules/.pnpm"))
-  {
-    let normalized_name = if package_name.starts_with('@') {
-      package_name.replace('/', "+")
-    } else {
-      package_name.to_string()
-    };
-
-    for path in directories.iter() {
-      if path.to_string_lossy().contains(&normalized_name)
-        && let Ok(resolved_node_modules_path_buff) =
-          resolve_node_modules_path_buff(path, import_path_str, package_json_seen)
-      {
-        let (package_json, _) = get_package_json(path, package_json_seen);
-
-        return Some((package_json, resolved_node_modules_path_buff));
-      };
-    }
-  };
-
-  None
-}
-
-fn resolve_node_modules_path_buff(
-  path: &Path,
-  import_path_str: &str,
-  package_json_seen: &mut FxHashMap<String, PackageJsonExtended>,
-) -> Result<PathBuf, std::io::Error> {
-  let (resolver, _) = get_package_json_with_deps(path, package_json_seen);
-
-  if let Some(package_resolution) = resolve_package_from_package_json(
-    &resolver,
-    &FileName::Real(path.to_path_buf()),
-    import_path_str,
-    package_json_seen,
-  ) && let FileName::Real(resolved_node_modules_path_buf) = package_resolution.filename
-  {
-    return Ok::<PathBuf, std::io::Error>(resolved_node_modules_path_buf);
-  }
-
-  Result::Err(std::io::Error::new(
-    std::io::ErrorKind::NotFound,
-    "File not found",
-  ))
-}
-
-fn possible_aliased_paths(
-  import_path_str: &str,
-  aliases: &FxHashMap<String, Vec<String>>,
-) -> Vec<PathBuf> {
-  let mut result = vec![PathBuf::from(import_path_str)];
-
-  if aliases.is_empty() {
-    return result;
-  }
-
-  for (alias, values) in aliases.iter() {
-    if let Some((before, after)) = alias.split_once('*') {
-      if import_path_str.starts_with(before) && import_path_str.ends_with(after) {
-        let replacement_string =
-          &import_path_str[before.len()..import_path_str.len() - after.len()];
-        for value in values {
-          result.push(PathBuf::from(value.replace('*', replacement_string)));
-        }
-      }
-    } else if alias == import_path_str {
-      result.extend(values.iter().map(PathBuf::from));
-    }
-  }
-
-  result
 }

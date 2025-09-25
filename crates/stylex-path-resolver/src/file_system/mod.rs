@@ -10,19 +10,6 @@ pub(crate) fn check_directory(path: &Path) -> bool {
   }
 }
 
-pub(crate) fn get_directories(path: &Path) -> Result<Vec<PathBuf>, std::io::Error> {
-  Ok(
-    fs::read_dir(path)?
-      .filter_map(|entry| {
-        entry.ok().and_then(|e| {
-          let path = e.path();
-          if path.is_dir() { Some(path) } else { None }
-        })
-      })
-      .collect::<Vec<_>>(),
-  )
-}
-
 pub(crate) fn get_directory_path_recursive(path: &Path) -> Option<PathBuf> {
   if path.as_os_str().is_empty() {
     return None;
