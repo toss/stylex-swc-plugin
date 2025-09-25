@@ -1,9 +1,8 @@
 use indexmap::IndexSet;
 use rustc_hash::FxHashMap;
 use serde::{Deserialize, Serialize};
-use std::{collections::HashMap, env};
+use std::env;
 use std::{default::Default, fs::read_to_string};
-use swc_core::ecma::loader::{TargetEnv, resolvers::node::NodeModulesResolver};
 
 use package_json::{PackageDependencies, PackageJsonManager};
 use std::path::{Path, PathBuf};
@@ -140,21 +139,4 @@ pub fn recursive_find_node_modules(
   }
 
   node_modules_paths
-}
-
-pub(crate) fn get_package_json_with_deps(
-  cwd: &Path,
-  package_json_seen: &mut FxHashMap<String, PackageJsonExtended>,
-) -> (NodeModulesResolver, HashMap<String, String>) {
-  let node_modules_resolver = NodeModulesResolver::new(TargetEnv::Node, Default::default(), true);
-  let resolver = node_modules_resolver;
-
-  let (package_json, _) = get_package_json(cwd, package_json_seen);
-
-  let mut package_dependencies = package_json.dependencies.unwrap_or_default();
-  let package_dev_dependencies = package_json.dev_dependencies.unwrap_or_default();
-
-  package_dependencies.extend(package_dev_dependencies);
-
-  (resolver, package_dependencies)
 }
