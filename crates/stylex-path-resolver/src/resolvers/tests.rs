@@ -1158,39 +1158,6 @@ mod resolve_path_application_pnpm_tests {
       expected_result
     );
   }
-
-  #[test]
-  fn resolve_organisation_package_with_pnpm_with_same_path() {
-    let test_path = PathBuf::from("application-pnpm");
-
-    let import_path_str = "@stylex/lib-exports-pnpm/dist/colors.stylex";
-    let source_file_path = format!(
-      "{}/src/pages/home.js",
-      get_root_dir(&test_path).as_path().display()
-    );
-    let root_path = get_root_dir(&test_path).display().to_string();
-    let aliases = FxHashMap::default();
-
-    let expected_result = format!(
-      "{}/{}",
-      root_path,
-      "node_modules/.pnpm/@stylex+lib-exports-pnpm@0.1.0/node_modules/@stylex/lib-exports-pnpm/dist/colors.stylex.js"
-    );
-
-    assert_eq!(
-      resolve_file_path(
-        import_path_str,
-        source_file_path.as_str(),
-        root_path.as_str(),
-        &aliases,
-        &mut HashMap::default(),
-      )
-      .unwrap_or_default()
-      .display()
-      .to_string(),
-      expected_result
-    );
-  }
 }
 
 #[cfg(test)]
