@@ -1,8 +1,6 @@
 use log::debug;
-use once_cell::sync::Lazy;
 use oxc_resolver::{AliasValue, ResolveOptions, Resolver};
 use path_clean::PathClean;
-use regex::Regex;
 use rustc_hash::FxHashMap;
 use std::path::{Path, PathBuf};
 
@@ -11,9 +9,6 @@ use std::fs;
 mod tests;
 
 pub const EXTENSIONS: [&str; 8] = [".tsx", ".ts", ".jsx", ".js", ".mjs", ".cjs", ".mdx", ".md"];
-
-pub static FILE_PATTERN: Lazy<Regex> =
-  Lazy::new(|| Regex::new(r#"\.(jsx?|tsx?|mdx?|mjs|cjs)$"#).unwrap());
 
 pub fn resolve_file_path(
   import_path_str: &str,
