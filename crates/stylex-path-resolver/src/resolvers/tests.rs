@@ -917,7 +917,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -946,7 +945,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -976,7 +974,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1021,7 +1018,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1053,7 +1049,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1084,7 +1079,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1117,7 +1111,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1150,7 +1143,6 @@ mod resolve_path_application_pnpm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1189,7 +1181,6 @@ mod resolve_path_application_npm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1218,7 +1209,6 @@ mod resolve_path_application_npm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1248,7 +1238,6 @@ mod resolve_path_application_npm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1293,7 +1282,6 @@ mod resolve_path_application_npm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1326,7 +1314,6 @@ mod resolve_path_application_npm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1361,7 +1348,6 @@ mod resolve_path_application_npm_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1407,7 +1393,6 @@ mod resolve_nested_external_imports_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1442,7 +1427,6 @@ mod resolve_nested_external_imports_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1491,7 +1475,6 @@ mod resolve_nested_external_imports_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()
@@ -1540,7 +1523,6 @@ mod resolve_nested_external_imports_tests {
         source_file_path.as_str(),
         root_path.as_str(),
         &aliases,
-        &mut HashMap::default(),
       )
       .unwrap_or_default()
       .display()

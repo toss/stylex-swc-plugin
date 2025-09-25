@@ -361,7 +361,6 @@ pub fn resolve_file_path(
   source_file_path: &str,
   root_path: &str,
   aliases: &FxHashMap<String, Vec<String>>,
-  package_json_seen: &mut FxHashMap<String, PackageJsonExtended>,
 ) -> std::io::Result<PathBuf> {
   let source_file_dir = Path::new(source_file_path).parent().unwrap();
   let root_path = Path::new(root_path);
