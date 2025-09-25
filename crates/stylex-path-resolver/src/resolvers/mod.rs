@@ -406,12 +406,24 @@ pub fn resolve_file_path(
         })
         .collect(),
       extensions: EXTENSIONS.iter().map(|ext| ext.to_string()).collect(),
+      condition_names: vec![
+        "node".into(),
+        "import".into(),
+        "require".into(),
+        "default".into(),
+      ],
       ..ResolveOptions::default()
     };
 
     match Resolver::new(resolver_options).resolve(source_file_dir, &import_path_str) {
-      Err(_) => vec![],
-      Ok(resolution) => vec![resolution.into_path_buf()],
+      Err(err) => {
+        println!("err: {:?}", err);
+        vec![]
+      }
+      Ok(resolution) => {
+        println!("resolution: {:?}", resolution);
+        vec![resolution.into_path_buf()]
+      }
     }
   };
 
