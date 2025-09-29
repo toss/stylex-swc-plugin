@@ -46,13 +46,12 @@ pub fn resolve_file_path(
     .unwrap();
 
   if import_path_str.starts_with(".")
-    && let Ok(resolution) =
-      resolver_without_aliases.resolve(source_directory_path, &import_path_str)
+    && let Ok(resolution) = resolver_without_aliases.resolve(source_directory_path, import_path_str)
   {
     return Ok(resolution.into_path_buf());
   }
 
-  match resolver_with_aliases.resolve(source_file_path, &import_path_str) {
+  match resolver_with_aliases.resolve(source_file_path, import_path_str) {
     Ok(resolution) => Ok(resolution.into_path_buf()),
     Err(_) => Err(std::io::Error::new(
       std::io::ErrorKind::NotFound,
