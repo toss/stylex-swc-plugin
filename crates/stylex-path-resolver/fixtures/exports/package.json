@@ -1,6 +1,6 @@
 {
   "name": "exports-app",
-  "version": "0.11.1-toss.2",
+  "version": "0.11.1-toss.3",
   "dependencies": {
     "stylex-lib-dist-exports": "*",
     "stylex-lib-dist-exports-commonjs-esm": "*",

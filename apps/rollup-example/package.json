@@ -1,7 +1,7 @@
 {
   "name": "@toss/stylexswc-rollup-example",
   "description": "A simple rollup example to test @toss/stylexswc-rollup-plugin",
-  "version": "0.11.1-toss.2",
+  "version": "0.11.1-toss.3",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -22,8 +22,8 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-replace": "^6.0.2",
     "@rollup/plugin-swc": "^0.4.0",
-    "@toss/stylexswc-playwright": "0.11.1-toss.2",
-    "@toss/stylexswc-rollup-plugin": "0.11.1-toss.2",
+    "@toss/stylexswc-playwright": "0.11.1-toss.3",
+    "@toss/stylexswc-rollup-plugin": "0.11.1-toss.3",
     "rollup": "^4.46.2",
     "rollup-plugin-serve": "^3.0.0",
     "serve": "^14.2.4"
