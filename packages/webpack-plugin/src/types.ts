@@ -52,6 +52,22 @@ export interface StyleXPluginOption extends Pick<StyleXWebpackLoaderOptions, 'tr
    * @default true
    */
   extractCSS?: boolean;
+
+  /**
+   * Patterns to include for StyleX transformation.
+   * By default, all files are processed. This option overrides `exclude` option.
+   *
+   * @example ['@myorg/design-system']
+   */
+  include?: (string | RegExp)[];
+
+  /**
+   * Patterns to exclude from StyleX transformation.
+   * By default, no files are excluded. This option is overridden by `include` option.
+   *
+   * @example [/node_modules/]
+   */
+  exclude?: (string | RegExp)[];
 }
 export type StyleXWebpackLoaderOptions = {
   stylexImports: StyleXOptions['importSources'];

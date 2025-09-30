@@ -44,6 +44,9 @@ export default class StyleXPlugin {
 
   transformCss: CSSTransformer;
 
+  include: (string | RegExp)[];
+  exclude: (string | RegExp)[];
+
   constructor({
     stylexImports = ['stylex', '@stylexjs/stylex'],
     useCSSLayers = false,
@@ -52,6 +55,8 @@ export default class StyleXPlugin {
     transformCss = identityTransfrom,
     transformer = 'rs-compiler',
     extractCSS = true,
+    include = [],
+    exclude = [],
   }: StyleXPluginOption = {}) {
     this.useCSSLayers = useCSSLayers;
     this.loaderOption = {
@@ -69,6 +74,35 @@ export default class StyleXPlugin {
       extractCSS,
     };
     this.transformCss = transformCss;
+    this.include = include;
+    this.exclude = exclude;
+  }
+
+  private shouldProcessModule(resourcePath: string): boolean {
+    // First check exclude patterns
+    for (const pattern of this.exclude) {
+      if (this.matchesPattern(resourcePath, pattern)) {
+        // If excluded, check if it's explicitly included
+        for (const includePattern of this.include) {
+          if (this.matchesPattern(resourcePath, includePattern)) {
+            return true; // Explicitly included, override exclude
+          }
+        }
+
+        return false; // Excluded and not explicitly included
+      }
+    }
+
+    // Not excluded, so include it
+    return true;
+  }
+
+  private matchesPattern(resourcePath: string, pattern: string | RegExp): boolean {
+    if (pattern instanceof RegExp) {
+      return pattern.test(resourcePath);
+    }
+
+    return resourcePath.includes(pattern);
   }
 
   apply(compiler: webpack.Compiler) {
@@ -114,8 +148,9 @@ export default class StyleXPlugin {
         PLUGIN_NAME,
         (loaderContext, mod) => {
           const extname = path.extname(mod.matchResource || mod.resource);
+          const resourcePath = mod.matchResource || mod.resource;
 
-          if (INCLUDE_REGEXP.test(extname)) {
+          if (INCLUDE_REGEXP.test(extname) && this.shouldProcessModule(resourcePath)) {
             (loaderContext as SupplementedLoaderContext).StyleXWebpackContextKey = {
               registerStyleXRules: (resourcePath, stylexRules) => {
                 this.stylexRules.set(resourcePath, stylexRules);
@@ -134,7 +169,7 @@ export default class StyleXPlugin {
             });
           }
 
-          if (VIRTUAL_CSS_PATTERN.test(mod.matchResource || mod.resource)) {
+          if (VIRTUAL_CSS_PATTERN.test(resourcePath)) {
             mod.loaders.push({
               loader: stylexVirtualLoaderPath,
               options: {},
