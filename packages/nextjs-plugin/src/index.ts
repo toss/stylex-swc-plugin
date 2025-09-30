@@ -217,6 +217,9 @@ const withStyleX =
             },
             // Enforce nextjsMode to true
             nextjsMode: true,
+            // Pass through include/exclude options
+            include: pluginOptions?.include,
+            exclude: pluginOptions?.exclude,
             ...(extractCSS
               ? {
                   async transformCss(css, filePath) {
