@@ -1,6 +1,6 @@
 {
   "name": "@toss/stylexswc-typescript-config",
-  "version": "0.11.1-toss.3",
+  "version": "0.11.1-toss.4",
   "private": true,
   "license": "MIT",
   "publishConfig": {
