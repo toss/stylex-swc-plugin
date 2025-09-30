@@ -74,5 +74,5 @@
       "scripty@3.0.0": "patches/scripty@3.0.0.patch"
     }
   },
-  "repository": "dwlad90/stylex-swc-plugin"
+  "repository": "toss/stylex-swc-plugin"
 }
