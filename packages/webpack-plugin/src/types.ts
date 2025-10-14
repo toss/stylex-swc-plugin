@@ -68,6 +68,7 @@ export interface StyleXPluginOption extends Pick<StyleXWebpackLoaderOptions, 'tr
    * @example [/node_modules/]
    */
   exclude?: (string | RegExp)[];
+  useLightningcss?: boolean;
 }
 export type StyleXWebpackLoaderOptions = {
   stylexImports: StyleXOptions['importSources'];
