@@ -139,7 +139,7 @@ const withStyleX =
             ctx.dir,
             getSupportedBrowsers(ctx.dir, ctx.dev),
             undefined,
-            false
+            pluginOptions?.useLightningcss ?? true
           );
           return lazyPostCSSPromise;
         };
