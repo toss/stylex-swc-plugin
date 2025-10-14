@@ -113,6 +113,8 @@ module.exports = stylexPlugin({
     });
     return result.css;
   },
+  // useLightningcss (default: true)
+  useLightningcss: false
 })({
   transpilePackages: ['@stylexjs/open-props'],
   // Optionally, add any other Next.js config below
